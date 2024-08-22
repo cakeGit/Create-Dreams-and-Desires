@@ -13,7 +13,7 @@ public class CogCrankScenes {
     
     public static void cogCrank(SceneBuilder scene, SceneBuildingUtil util) {
         scene.title("cog_crank", "Generating Rotational Force using Cog Cranks");
-        scene.configureBasePlate(0, 0, 5);
+        scene.configureBasePlate(0, 0, 6);
         scene.world.showSection(util.select.layer(0), Direction.UP);
         scene.idle(5);
         

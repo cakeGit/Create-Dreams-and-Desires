@@ -2,7 +2,6 @@ package uwu.lopyluna.create_dd.mixins;
 
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
 import com.simibubi.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(value = SimpleKineticBlockEntity.class, remap = false)
-public class MixinSimpleKineticBlockEntity extends KineticBlockEntity {
+public abstract class MixinSimpleKineticBlockEntity extends KineticBlockEntity {
     
     public MixinSimpleKineticBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
@@ -28,7 +27,7 @@ public class MixinSimpleKineticBlockEntity extends KineticBlockEntity {
     @Inject(method = "addPropagationLocations", at = @At("RETURN"), cancellable = true)
     private void addPropagationLocations(IRotate block, BlockState state, List<BlockPos> neighbours, CallbackInfoReturnable<List<BlockPos>> cir) {
         ArrayList<BlockPos> extendedConnectionPositions = new ArrayList<>(neighbours);
-        Direction.Axis axis = getBlockState().getValue(RotatedPillarKineticBlock.AXIS);
+        Direction.Axis axis = ((IRotate) getBlockState().getBlock()).getRotationAxis(getBlockState());
         
         if (ICogWheel.isLargeCog(state))
             extendedConnectionPositions.addAll(
@@ -45,7 +44,7 @@ public class MixinSimpleKineticBlockEntity extends KineticBlockEntity {
                     true, false
                 )
             );
-            
+        
         cir.setReturnValue(extendedConnectionPositions);
     }
     

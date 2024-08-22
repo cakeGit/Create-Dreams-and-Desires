@@ -20,7 +20,10 @@ public class DesiresShapes extends AllShapes {
     
     public static final VoxelShaper
         SMALL_COG_CRANK = shape(SMALL_GEAR_SHAPE).forAxis(),
-        LARGE_COG_CRANK = shape(LARGE_GEAR_SHAPE).forAxis();
+        LARGE_COG_CRANK = shape(LARGE_GEAR_SHAPE).forAxis(),
+        GIANT_GEAR = shape(3, -32, -16, 13, 48, 32)
+            .add(cuboid(3, -16, -32, 13, 32, 48))
+            .forAxis();
     
     //Private method mirrors
     
